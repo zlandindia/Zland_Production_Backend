@@ -93,12 +93,14 @@ router.post("/sendNotification", async (req, res) => {
 
 
 router.post("/AddToken", async (req, res) => {
+    console.log("Entered in Add token")
     try {
         const { token } = req.body;
+        console.log("Token: " + token)
 
         // user Existence check
         async function TokenExistence(token) {
-            console.log(token)
+            console.log("Existing token Function called" + token)
             const existingToken = await Token.findOne({ token: token });
             if (existingToken === null) {
                 return false;
@@ -115,6 +117,7 @@ router.post("/AddToken", async (req, res) => {
 
         if (!existingToken) {
             const newToken = new Token({ token });
+            console.log("token saved", newToken);
             newToken.save().then(() => { res.status(200).json("Token saved"); }).catch(() => { res.status(400).json("Something went wrong"); });
         }
     }
