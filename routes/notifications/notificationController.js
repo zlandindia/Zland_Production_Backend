@@ -19,8 +19,8 @@ router.post("/sendNotification", async (req, res) => {
         })
     }
     // End Getting All Tokens
-    // let somePushTokens = await getAllTokens()
-    let somePushTokens = ["ExponentPushToken[CGEEc-KuGlVbP_02DVSHX3]"];
+    let somePushTokens = await getAllTokens()
+    // let somePushTokens = ["ExponentPushToken[CGEEc-KuGlVbP_02DVSHX3]"];
     let messages = [];
     for (let pushToken of somePushTokens) {
         if (!Expo.isExpoPushToken(pushToken)) {
@@ -98,6 +98,7 @@ router.post("/AddToken", async (req, res) => {
 
         // user Existence check
         async function TokenExistence(token) {
+            console.log(token)
             const existingToken = await Token.findOne({ token: token });
             if (existingToken === null) {
                 return false;
