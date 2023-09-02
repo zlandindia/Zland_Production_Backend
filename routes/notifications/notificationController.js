@@ -118,11 +118,10 @@ router.post("/AddToken", async (req, res) => {
             newToken.save().then(() => { res.status(200).json("Token saved"); }).catch(() => { res.status(400).json("Something went wrong"); });
         }
     }
-    catch { res.status(400).json("Something went wrong"); }
+    catch {
+        console.log("error occurs while saving token")
+        res.status(400).json("Something went wrong");
+    }
 });
-
-
-
-
 
 module.exports = router;
