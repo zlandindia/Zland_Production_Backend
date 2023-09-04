@@ -16,9 +16,11 @@ router.post("/AddLand", verifyToken, async (req, res) => {
     lengthinft,
     widthinft,
     price,
+    customer,
     note,
   } = req.body;
   const userId = await jwt.decode(token).id;
+  const landStatus = "live"
   const newLand = new Lands({
     name,
     street,
@@ -31,6 +33,8 @@ router.post("/AddLand", verifyToken, async (req, res) => {
     price,
     note,
     userId,
+    customer,
+    landStatus
   });
 
   await newLand
@@ -47,7 +51,7 @@ router.post("/AddLand", verifyToken, async (req, res) => {
 router.post("/allLands", async (req, res) => {
   const { city } = req.body;
   if (city == "Select City") {
-    Lands.find({}).sort({ _id: -1 }).then((error, result) => {
+    Lands.find({ landStatus: "live" }).sort({ _id: -1 }).then((error, result) => {
       if (error) {
         res.send(error);
       }
@@ -69,7 +73,7 @@ router.post("/allMyLands", verifyToken, async (req, res) => {
   let token = req.headers["authorizatrion"];
   try {
     const id = await jwt.decode(token).id;
-    await Lands.find({ userId: id }).then((error, result) => {
+    await Lands.find({ userId: id, landStatus: "live" }).then((error, result) => {
       if (error) {
         res.send(error);
       }
@@ -101,7 +105,10 @@ router.post("/delete", verifyToken, async (req, res) => {
   // Mistake: *** Land === user not verified
   const { landId } = req.body;
   try {
-    await Lands.deleteOne({ _id: landId });
+    // await Lands.deleteOne({ _id: landId });
+    // update Land Status
+    await Lands.updateOne({ _id: landId }, { $set: { landStatus: "deleted" } })
+    // End Update Land Status
     res.status(200).json("Land deleted")
   } catch (error) {
     res.status(401).json("Sorry Something Wrong");

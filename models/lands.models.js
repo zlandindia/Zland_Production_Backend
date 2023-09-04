@@ -57,6 +57,14 @@ const landSchema = new Schema(
       type: String,
       trim: true,
     },
+    customer: {
+      type: String,
+      default: 'unknown',
+    },
+    landStatus: {
+      type: String,
+      default: 'live',
+    },
   },
   { timestamps: true }
 );
