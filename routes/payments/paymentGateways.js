@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const stripe = require('stripe')('sk_test_51Nh9Q4SFvdMjEzm5KN3JU9pPm4QvilwZ2malUwK3ih4blXCjmeDKsNk6lFYYlQYm8i2u6JrmnOxWf6xASBcGbvFm00LVA8up0U');
+const stripe = require('stripe')('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');
 
 router.get("/razorpay", (req, res) => { //only for razorpay
     res.status(200).json({ ID: "rzp_test_kM6TGFic2ENg3f", "SECRET": "DqzrRqBYxu2b3KW7UMGRTnmL", "AMOUNT": 200 });
@@ -32,7 +32,7 @@ router.post('/subscription', async (req, res) => {
     const subscription = await stripe.subscriptions.create({
         customer: customer.id,
         items: [{
-            price: "price_1NiJfbSFvdMjEzm5q9zX2B7j",
+            price: "price_1Nmy9BSFvdMjEzm57MvKFyJv",
         }],
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
