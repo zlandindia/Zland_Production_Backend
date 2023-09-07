@@ -100,6 +100,7 @@ router.post("/sellerDetails", verifyToken, async (req, res) => {
         res.send(error);
       }
       res.send(result);
+
     });
   } catch (error) {
     res.send("Sorry Something Wrong");

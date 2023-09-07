@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const stripe = require('stripe')('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');
+const stripe = require('stripe')('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');
 
 router.get("/razorpay", (req, res) => { //only for razorpay
     res.status(200).json({ ID: "rzp_test_kM6TGFic2ENg3f", "SECRET": "DqzrRqBYxu2b3KW7UMGRTnmL", "AMOUNT": 200 });
@@ -25,14 +25,24 @@ router.post('/stripeIntent', async (req, res) => {
 });
 
 router.post('/subscription', async (req, res) => {
-    // Use an existing Customer ID if this is a returning customer.
-    const customer = await stripe.customers.create();
+    let token = req.headers["authorizatrion"];
+    const phone = await jwt.decode(token).mobile;
+    const customer_ID = await jwt.decode(token).id;
 
+    // Getting customer name
+    // await User.find({ _id: customer_ID }).then((error, result) => {
+    //     res.send(result);
+    // });
+    // End Getting customer name
+    // Use an existing Customer ID if this is a returning customer.
+    const customer = await stripe.customers.create({ phone });
+
+    const ephemeralKey = await stripe.ephemeralKey.create({ customer: customer.id }, { apiVersion: '2023-09-07' })
 
     const subscription = await stripe.subscriptions.create({
         customer: customer.id,
         items: [{
-            price: "price_1Nmy9BSFvdMjEzm57MvKFyJv",
+            price: "price_1Nnc6lSAPHgQMI2ypa39ijRT",
         }],
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
@@ -43,7 +53,8 @@ router.post('/subscription', async (req, res) => {
     res.json({
         paymentIntent: subscription.latest_invoice.payment_intent.client_secret,
         amount: 199,
-        customerId: customer.id
+        customerId: customer.id,
+        ephemeralKey: ephemeralKey.secret
     });
 });
 
