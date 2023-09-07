@@ -52,6 +52,7 @@ router.post('/subscription', async (req, res) => {
     });
 
 
+
     res.json({
         paymentIntent: subscription.latest_invoice.payment_intent.client_secret,
         amount: 199,
