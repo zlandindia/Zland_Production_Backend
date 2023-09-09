@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 var cors = require("cors");
+const path = require("path");
+
 const { default: mongoose, connection } = require("mongoose");
 
 const PORT = process.env.PORT | 5000;
@@ -14,9 +16,12 @@ const landController = require("./routes/lands/landController");
 const notifications = require("./routes/notifications/notificationController");
 const payments = require("./routes/payments/paymentGateways");
 
-app.get("/", (req, res) => {
-  res.json({ message: "Hello, from backend" });
-});
+// app.get("/", (req, res) => {
+//   res.json({ message: "Hello, from backend" });
+// });
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use("/api/userController", userController);
 app.use("/api/landController", landController);
 app.use("/api/notifications", notifications);
