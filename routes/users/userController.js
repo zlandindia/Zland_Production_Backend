@@ -157,26 +157,8 @@ function verifyToken(req, res, next) {
 
 
 router.post("/DeleteMe", async (req, res) => {
-  const mobileNumber = req.body.mobileNumber;
-  async function getuser(mobilenumber) {
-    const existingUser = await User.findOne({ mobilenumber: mobilenumber });
-    console.log(existingUser);
-    if (existingUser === null) {
-      return false;
-    }
-    return existingUser;
-  }
-  const user = await getuser(mobilenumber);
 
-  if (!user) {
-    res.status(400).json("Invalid Mobile Number");
-  }
-
-
-  if (user) {
-    id = user._id;
-    res.send({ "Res": `Dear user, your id: ${user._id} will be deleted with in 7 days after your confirmation. You will get call in 24 hours.` });
-  }
+  res.send({ "Res": `Dear user, your account will be deleted with in 24 hours after your confirmation. You will get call in 24 hours.` });
 
 
 });
