@@ -44,7 +44,7 @@ router.post('/subscription', async (req, res) => {
     const subscription = await stripe.subscriptions.create({
         customer: customer.id,
         items: [{
-            price: "price_1Nnc6lSAPHgQMI2ypa39ijRT",
+            price: "price_1NwTrESAPHgQMI2yZzNJa2Qa",
         }],
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
@@ -55,7 +55,7 @@ router.post('/subscription', async (req, res) => {
 
     res.json({
         paymentIntent: subscription.latest_invoice.payment_intent.client_secret,
-        amount: 199,
+        amount: 499,
         customerId: customer.id,
         ephemeralKey: ephemeralKey.secret
     });
