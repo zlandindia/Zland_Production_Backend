@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Lands = require("../../models/lands.models");
+const landintractions = require("../../models/landIntractions.models");
 const jwt = require("jsonwebtoken");
 
 // Adding lands
@@ -82,6 +83,13 @@ router.post("/allMyLands", verifyToken, async (req, res) => {
   } catch (error) {
     res.send("Sorry Something Wrong");
   }
+});
+
+// LandIntraction Entries
+router.post("/LandIntractions", async (req, res) => {
+  const { userId, landId, medium } = req.body;
+  const newLandIntraction = new landintractions({ userId, landId, medium })
+  await newLandIntraction.save().then(() => { res.json("Intraction saved") }).catch((error) => { res.json(error) })
 });
 
 // Fetching all my lands
