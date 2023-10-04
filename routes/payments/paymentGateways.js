@@ -31,12 +31,10 @@ router.post('/subscription', async (req, res) => {
     const phone = await jwt.decode(token).mobile;
     const customer_ID = await jwt.decode(token).id;
 
-    // Getting customer name
-    // await User.find({ _id: customer_ID }).then((error, result) => {
-    //     res.send(result);
-    // });
-    // End Getting customer name
-    // Use an existing Customer ID if this is a returning customer.
+    // Getting Time Stamp
+    currentTimeStamp = new Date().getTime()
+    timeStampAfterThreeDays = currentTimeStamp + 259200000;
+    // End Getting Time Stamp
     const customer = await stripe.customers.create({ phone });
 
     const ephemeralKey = await stripe.ephemeralKeys.create({ customer: customer.id }, { apiVersion: '2023-08-16' })
@@ -46,9 +44,11 @@ router.post('/subscription', async (req, res) => {
         items: [{
             price: "price_1NxWOGSAPHgQMI2ySFwQjDys",
         }],
+        trial_end: timeStampAfterThreeDays,
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
         expand: ['latest_invoice.payment_intent'],
+
     });
 
 
