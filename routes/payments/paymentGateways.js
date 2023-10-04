@@ -44,7 +44,7 @@ router.post('/subscription', async (req, res) => {
     const subscription = await stripe.subscriptions.create({
         customer: customer.id,
         items: [{
-            price: "price_1NxWOGSAPHgQMI2ySFwQjDys",
+            price: "price_1NwTrESAPHgQMI2yZzNJa2Qa",
         }],
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
