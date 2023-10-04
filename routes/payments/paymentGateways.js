@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const stripe = require('stripe')('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');
+const stripe = require('stripe')('sk_test_51NnZdkSAPHgQMI2y5z6ZqGHY0VbFWntZzdwOf7wDaxinGqgnEgtOZq9PY7uge8oXBvmDuiDUwbdegUHgRZy0zk6D00Xd0dumHX');
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = "mysecretkey";
 
@@ -44,7 +44,7 @@ router.post('/subscription', async (req, res) => {
     const subscription = await stripe.subscriptions.create({
         customer: customer.id,
         items: [{
-            price: "price_1NwTrESAPHgQMI2yZzNJa2Qa",
+            price: "price_1NxXhZSAPHgQMI2yv0dl9DNX",
         }],
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
