@@ -31,9 +31,6 @@ router.post('/subscription', async (req, res) => {
     const phone = await jwt.decode(token).mobile;
     const customer_ID = await jwt.decode(token).id;
 
-    // Getting Time Stamp
-    // currentTimeStamp = Math.floor(Date.now() / 1000)
-    // End Getting Time Stamp
     const customer = await stripe.customers.create({ phone });
 
     const ephemeralKey = await stripe.ephemeralKeys.create({ customer: customer.id }, { apiVersion: '2023-08-16' })
@@ -43,10 +40,9 @@ router.post('/subscription', async (req, res) => {
         items: [{
             price: "price_1NxWOGSAPHgQMI2ySFwQjDys",
         }],
-        // payment_behavior: 'default_incomplete',
-        // payment_settings: { save_default_payment_method: 'on_subscription' },
-        // expand: ['latest_invoice.payment_intent'],
-        trial_end: 1696757052,
+        payment_behavior: 'default_incomplete',
+        payment_settings: { save_default_payment_method: 'on_subscription' },
+        expand: ['latest_invoice.payment_intent'],
     });
 
 
