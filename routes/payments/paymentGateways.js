@@ -43,12 +43,9 @@ router.post('/subscription', async (req, res) => {
         items: [{
             price: "price_1NxWOGSAPHgQMI2ySFwQjDys",
         }],
-        // trial_end: timeStampAfterThreeDays,
-        trial_end: 1696757052,
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
         expand: ['latest_invoice.payment_intent'],
-
     });
 
 
