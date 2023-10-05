@@ -32,8 +32,8 @@ router.post('/subscription', async (req, res) => {
     const customer_ID = await jwt.decode(token).id;
 
     // Getting Time Stamp
-    // currentTimeStamp = new Date().getTime()
-    // timeStampAfterThreeDays = currentTimeStamp + 259200000;
+    currentTimeStamp = Math.floor(Date.now() / 1000);
+    timeStampAfterThreeDays = currentTimeStamp + 259200;
     // End Getting Time Stamp
     const customer = await stripe.customers.create({ phone });
 
@@ -44,7 +44,7 @@ router.post('/subscription', async (req, res) => {
         items: [{
             price: "price_1NxWOGSAPHgQMI2ySFwQjDys",
         }],
-        // trial_end: timeStampAfterThreeDays,
+        trial_end: timeStampAfterThreeDays,
         payment_behavior: 'default_incomplete',
         payment_settings: { save_default_payment_method: 'on_subscription' },
         expand: ['latest_invoice.payment_intent'],
