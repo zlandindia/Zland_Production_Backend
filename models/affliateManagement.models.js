@@ -28,6 +28,10 @@ const affliateManager = new Schema(
         AffliateCode: {
             type: String,
             trim: true,
+        },
+        token: {
+            type: String,
+            trim: true,
         }
     },
     { timestamps: true }
