@@ -10,6 +10,7 @@ const affliateManager = new Schema(
         },
         Mobile: {
             type: String,
+            unique: true,
             trim: true,
         },
         AccountNumber: {
