@@ -15,6 +15,7 @@ const appVersionManagement = require("./routes/users/appVersionManagement");
 const landController = require("./routes/lands/landController");
 const notifications = require("./routes/notifications/notificationController");
 const payments = require("./routes/payments/paymentGateways");
+const affliate = require("./routes/affliations/affliateAccountManagement")
 
 // app.get("/", (req, res) => {
 //   res.json({ message: "Hello, from backend" });
@@ -27,6 +28,7 @@ app.use("/api/landController", landController);
 app.use("/api/notifications", notifications);
 app.use("/api/payment", payments);
 app.use("/api/version", appVersionManagement);
+app.use("/api/affliate", affliate);
 
 // Database Connection
 const uri =
