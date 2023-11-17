@@ -37,7 +37,7 @@ router.post("/createAffliate", async (req, res) => {
         bankName,
         token
     } = req.body;
-
+    newnumber = Number(mobile);
     // Check If Account Exist
     try {
         await affliateSchema.find({ Mobile: mobile }).then(async (error, result) => {
@@ -48,7 +48,7 @@ router.post("/createAffliate", async (req, res) => {
             // Create a new account
             const newAffliate = new affliateSchema({
                 name,
-                mobile,
+                newnumber,
                 accountNumber,
                 ifsc,
                 bankName,
