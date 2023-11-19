@@ -4,36 +4,37 @@ const Schema = mongoose.Schema;
 
 const affliateManager = new Schema(
     {
-        Name: {
+        name: {
             type: String,
             trim: true,
             require: true,
         },
-        Mobile: {
-            type: Number,
+        mobile: {
             unique: true,
+            type: Number,
             trim: true,
             require: true,
         },
-        AccountNumber: {
+        accountNumber: {
             type: String,
             trim: true,
             require: true,
         },
-        Ifsc: {
+        ifsc: {
             type: String,
             trim: true,
             require: true,
         },
-        BankName: {
+        bankName: {
             type: String,
             trim: true,
             require: true,
         },
-        AffliateCode: {
+        affliateCode: {
             type: String,
             trim: true,
             require: true,
+            unique: true
         },
         token: {
             type: String,
@@ -44,6 +45,6 @@ const affliateManager = new Schema(
     { timestamps: true }
 );
 
-const affliateSchema = mongoose.model("affliateManager", affliateManager);
+const affliateSchema = mongoose.model("affliateSchema", affliateManager);
 
 module.exports = affliateSchema;

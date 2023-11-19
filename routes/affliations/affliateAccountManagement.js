@@ -12,14 +12,12 @@ router.post("/checkAffliate", async (req, res) => {
     } = req.body;
     // Check If Account Exist
     try {
-        await affliateSchema.find({ token: token }).then(async (error, result) => {
-            if (error) {
-                res.send("Token does not exist");
-            }
+        const existingUser = await affliateSchema.findOne({ token: token });
+        if (existingUser === null) {
+            res.send("User not found")
+        }
+        if (existingUser !== null) { res.send(existingUser) }
 
-            res.send(result);
-
-        });
     } catch (error) {
         res.send("Sorry Something Wrong, Please Try Later");
     }
@@ -27,47 +25,60 @@ router.post("/checkAffliate", async (req, res) => {
 
 
 
+
+
 // Adding Affliate
 router.post("/createAffliate", async (req, res) => {
     const {
         name,
-        mobile,
+        phonemobile,
         accountNumber,
         ifsc,
         bankName,
         token
     } = req.body;
-    newnumber = Number(mobile);
+    mobile = Number(phonemobile);
+    const prefix = "ZL"
+    const affliateCode = prefix.concat(mobile.toString())
+
     // Check If Account Exist
-    try {
-        await affliateSchema.find({ Mobile: mobile }).then(async (error, result) => {
-            if (result) {
-                res.send("Your Account Already Exists");
-            }
-            const code = mobile;
+    // Check for affliate existance
+    async function getuser(mobilenumber) {
+        const existingUser = await affliateSchema.findOne({ mobile: mobile });
+        if (existingUser === null) {
+            return false;
+        }
+        return existingUser;
+    }
+    const user = await getuser(mobile);
+    if (user) {
+        res.json("Affliate Already Exist")
+    }
+    if (!user) {
+        try {
+
             // Create a new account
             const newAffliate = new affliateSchema({
                 name,
-                newnumber,
+                mobile,
                 accountNumber,
                 ifsc,
                 bankName,
-                code,
+                affliateCode,
                 token
             });
-            await newAffliate
-                .save()
-                .then(() => {
-                    res.json(newAffliate);
-                })
+
+            await newAffliate.save().then(() => {
+                res.json("saved");
+            })
                 .catch((error) => {
-                    res.json(error);
+                    res.json("Your Account number might already exist");
                 });
 
-
-        });
-    } catch (error) {
-        res.send("Sorry Something Wrong, Please Try Later");
+        } catch (error) {
+            console.error(error);
+            res.send("Sorry Something Wrong, Please Try Later");
+        }
     }
 });
 
