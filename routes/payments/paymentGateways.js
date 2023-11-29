@@ -4,7 +4,7 @@ const stripe = require('stripe')('sk_live_51NnZdkSAPHgQMI2yGF9wB5Ru4jd4SPO6SDRoi
 const jwt = require("jsonwebtoken");
 const SECRET_KEY = "mysecretkey";
 
-router.get("/prices", (req, res) => {
+router.post("/prices", (req, res) => {
     res.status(200).json({ "BasicPrice": 399, "StandardPrice": 699, "PremiumPrice": 899, "BasicPlanTime": 30, "StandardPlanTime": 60, "PremiumPlanTime": 90, });
 });
 
