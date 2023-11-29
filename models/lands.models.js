@@ -65,6 +65,14 @@ const landSchema = new Schema(
       type: String,
       default: 'live',
     },
+    transactionDetails: {
+      type: String,
+      default: 'default',
+    },
+    timePeriod: {
+      type: Number,
+      default: 0
+    },
   },
   { timestamps: true }
 );
