@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY = "mysecretkey";
 
 router.post("/prices", (req, res) => {
-    res.status(200).json({ "BasicPrice": 1, "StandardPrice": 2, "PremiumPrice": 3, "BasicPlanTime": 30, "StandardPlanTime": 60, "PremiumPlanTime": 90, "vpa": "q059876903@ybl", "payeeName": "SUBRAMANI K" });
+    res.status(200).json({ "BasicPrice": 1, "StandardPrice": 2, "PremiumPrice": 3, "BasicPlanTime": 30, "StandardPlanTime": 60, "PremiumPlanTime": 90, "vpa": "q846296864@ybl", "payeeName": "Ganeshan Sudhakar" });
 });
 
 
